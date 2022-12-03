@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
           ),
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.pink)
               .copyWith(secondary: Colors.deepPurple)),
-      home: const AuthForm(),
+      home: AuthForm((email, password, userName, isLogin) {}),
     );
   }
 }
