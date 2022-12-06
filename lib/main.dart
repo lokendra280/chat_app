@@ -1,3 +1,4 @@
+import 'package:chat_app/auth/auth_screen.dart';
 import 'package:chat_app/widgets/auth/auth_form.dart';
 import 'package:flutter/material.dart';
 
@@ -19,17 +20,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          backgroundColor: Colors.pink,
-          buttonTheme: ButtonTheme.of(context).copyWith(
-            buttonColor: Colors.pink,
-            textTheme: ButtonTextTheme.primary,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
+        backgroundColor: Colors.pink,
+        buttonTheme: ButtonTheme.of(context).copyWith(
+          buttonColor: Colors.pink,
+          textTheme: ButtonTextTheme.primary,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
           ),
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.pink)
-              .copyWith(secondary: Colors.deepPurple)),
-      home: AuthForm((email, password, userName, isLogin) {}),
+        ),
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.pink)
+            .copyWith(secondary: Colors.deepPurple),
+      ),
+      home: AuthScreen(),
     );
   }
 }

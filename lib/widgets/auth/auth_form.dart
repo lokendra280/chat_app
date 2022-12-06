@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 class AuthForm extends StatefulWidget {
   AuthForm(this.submitFm);
   final void Function(
-      String email, String password, String userName, bool isLogin) submitFm;
+    String email,
+    String password,
+    String userName,
+    bool isLogin,
+    BuildContext ctx,
+  ) submitFm;
 
   @override
   State<AuthForm> createState() => _AuthFormState();
@@ -15,12 +20,19 @@ class _AuthFormState extends State<AuthForm> {
   var _userEmail = '';
   var _userName = '';
   var _userPassword = '';
+
   void _trySubmit() {
     final isValid = _formkey.currentState!.validate();
     FocusScope.of(context).unfocus();
     if (isValid) {
       _formkey.currentState!.save();
-      widget.submitFm(_userEmail, _userPassword, _userName, _isLogin);
+      widget.submitFm(
+        _userEmail.toString().trim(),
+        _userPassword.toString().trim(),
+        _userName.toString().trim(),
+        _isLogin,
+        context,
+      );
     }
   }
 
@@ -37,13 +49,13 @@ class _AuthFormState extends State<AuthForm> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 TextFormField(
-                  key: ValueKey('email'),
-                  // validator: (value) {
-                  //   if (value!.isEmpty || value.contains('@')) {
-                  //     return 'Please Enter valid Email Address';
-                  //   }
-                  //   return null;
-                  // },
+                  key: const ValueKey('email'),
+                  validator: (value) {
+                    if (value!.isEmpty || value.length < 5) {
+                      return 'Please Enter valid Email Address';
+                    }
+                    return null;
+                  },
                   keyboardType: TextInputType.emailAddress,
                   decoration: const InputDecoration(
                     labelText: 'Email Address',
@@ -54,7 +66,7 @@ class _AuthFormState extends State<AuthForm> {
                 ),
                 if (!_isLogin)
                   TextFormField(
-                    key: ValueKey('username'),
+                    key: const ValueKey('username'),
                     validator: (value) {
                       if (value!.isEmpty || value.length < 4) {
                         return 'Please enter at  least 4 characater';
@@ -69,7 +81,7 @@ class _AuthFormState extends State<AuthForm> {
                     },
                   ),
                 TextFormField(
-                  key: ValueKey('password'),
+                  key: const ValueKey('password'),
                   validator: (value) {
                     if (value!.isEmpty || value.length < 7) {
                       return 'Password must be least 7 characater';
